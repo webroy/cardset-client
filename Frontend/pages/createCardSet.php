@@ -49,9 +49,7 @@
                     </form>
                 </div>
             </div>
-            <!-- /.col-md-6 -->
         </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
 </div>
 <!-- /.content -->

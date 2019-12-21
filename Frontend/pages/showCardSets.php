@@ -35,9 +35,42 @@
         </div>
 
         <div class="row">
-            <a href="?p=createCardSet">
-                <button type="button" class="btn btn-block btn-info">Neues Set erstellen</button>
-            </a>
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                    Neue Rubrik erstellen
+                </button>
+                <a href="?p=createCardSet">
+                    <button type="button" class="btn btn-primary">Neues Set erstellen</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Rubrik erstellen</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="#" role="form" name="createRubrik">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="setRubrik">Name</label>
+                            <input type="text" class="form-control" id="setRubrik">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-primary">Speichern</button>
+            </div>
         </div>
     </div>
 </div>
