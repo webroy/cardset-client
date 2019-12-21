@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <a href="?p=showCardSets">
+                                    <a href="?p=showCategories">
                                         <div class="position-relative p-3 bg-gradient-warning" style="height: 180px">
                                             <div class="ribbon-wrapper ribbon-lg">
                                                 <div class="ribbon bg-success text-lg">

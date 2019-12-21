@@ -55,6 +55,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="?p=showCategories" class="nav-link">
+                            <i class="nav-icon fas fa-eye"></i>
+                            <p>Kategorien ansehen</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="?p=createCardSet" class="nav-link">
                             <i class="nav-icon fas fa-folder-plus"></i>
                             <p>Kartenset erstellen</p>
@@ -103,6 +109,8 @@
                 include("pages/showQuartett.php"); break;
             case "showCardSets":
                 include("pages/showCardSets.php"); break;
+            case "showCategories":
+                include("pages/showCategories.php"); break;
 
             default:
                 include("pages/home.php"); break;
@@ -117,8 +125,7 @@
         <div class="float-right d-none d-sm-inline">
             MA 1
         </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2019. All rights reserved.
+        <strong>Copyright &copy; 2019. All rights reserved.</strong>
     </footer>
 </div>
 <!-- ./wrapper -->
