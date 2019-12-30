@@ -14,17 +14,23 @@
     <div class="container-fluid">
         <div class="row">
             <?php
-            $cardSets = [
-                ["name" => "Elektronik", "count" => 12],
-                ["name" => "Programmierung", "count" => 4],
-                ["name" => "Fahrzeuge", "count" => 6],
-            ];
+            $cardSets = [];
+
+            try{
+                $cardSets = json_decode(file_get_contents('http://localhost:8080/category'));
+
+                // TODO: da noch kein "Count" von der DB kommt. Hier manuell setzen
+                foreach ($cardSets as $set){
+                    $set->count = "?";
+                }
+            }catch(Exception $e){}
+
             foreach ($cardSets as $item){
                 echo '
                 <div class="col-lg-2">
                     <div class="callout callout-info">
-                        <h5><a href="?p=showCardSets">'.$item["name"].'</a></h5>
-                        <p><strong>'.$item["count"].' Kartensets</strong></p>
+                        <h5><a href="?p=showCardSets">'.$item->name.'</a></h5>
+                        <p><strong>'.$item->count.' Kartensets</strong></p>
                     </div>
                 </div>';
             }
@@ -58,16 +64,33 @@
                 <form method="post" action="#" role="form" name="createRubrik">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="setRubrik">Name</label>
-                            <input type="text" class="form-control" id="setRubrik">
+                            <label for="categoryName">Name</label>
+                            <input type="text" class="form-control" id="categoryName">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-                <button type="button" class="btn btn-primary">Speichern</button>
+                <button type="button" class="btn btn-primary" onClick="createCategory()">Speichern</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function createCategory(){
+        var category = $("#categoryName").val();
+        if (category == "") return;
+
+        $.ajax({
+            type: "POST",
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/category",
+            data:  JSON.stringify({ "name": category })
+        }).done(function( response ) {
+            window.location.reload();
+        });
+    }
+</script>
