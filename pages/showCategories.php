@@ -16,21 +16,23 @@
             <?php
             $cardSets = [];
 
-            try{
+            try {
                 $cardSets = json_decode(file_get_contents('http://localhost:8080/category'));
 
                 // TODO: da noch kein "Count" von der DB kommt. Hier manuell setzen
-                foreach ($cardSets as $set){
+                foreach ($cardSets as $set) {
                     $set->count = "?";
                 }
-            }catch(Exception $e){}
+            } catch (Exception $e) {
+                echo '<h5><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+            }
 
-            foreach ($cardSets as $item){
+            foreach ($cardSets as $item) {
                 echo '
                 <div class="col-lg-2">
                     <div class="callout callout-info">
-                        <h5><a href="?p=showCardSets">'.$item->name.'</a></h5>
-                        <p><strong>'.$item->count.' Kartensets</strong></p>
+                        <h5><a href="?p=showCardSets">' . $item->name . '</a></h5>
+                        <p><strong>' . $item->count . ' Kartensets</strong></p>
                     </div>
                 </div>';
             }
@@ -79,7 +81,7 @@
 </div>
 
 <script>
-    function createCategory(){
+    function createCategory() {
         var category = $("#categoryName").val();
         if (category == "") return;
 
@@ -88,8 +90,10 @@
             datatype: "json",
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:8080/category",
-            data:  JSON.stringify({ "name": category })
-        }).done(function( response ) {
+            data: JSON.stringify({
+                "name": category
+            })
+        }).done(function(response) {
             window.location.reload();
         });
     }
