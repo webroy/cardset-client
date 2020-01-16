@@ -31,7 +31,7 @@
                 echo '
                 <div class="col-lg-2">
                     <div class="callout callout-info">
-                        <h5><a href="?p=showCardSets">' . $item->name . '</a></h5>
+                        <h5><a href="?p=showCardSets&cat='.$item->id.'">' . $item->name . '</a></h5>
                         <p><strong>' . $item->count . ' Kartensets</strong></p>
                     </div>
                 </div>';
@@ -44,9 +44,6 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
                     Kategorie erstellen
                 </button>
-                <a href="?p=createCardSet">
-                    <button type="button" class="btn btn-primary">Kartenset erstellen</button>
-                </a>
             </div>
         </div>
     </div>

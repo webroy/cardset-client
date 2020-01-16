@@ -14,22 +14,37 @@
     <div class="container-fluid">
         <div class="row">
             <?php
-            $cardSets = [
-                ["name" => "Java", "count" => 20],
-                ["name" => "PHP", "count" => 25],
-                ["name" => "C#", "count" => 36],
-                ["name" => "HTML/CSS", "count" => 20],
-            ];
+            $cardSets = [];
+
+            try {
+                $cardSets = json_decode(file_get_contents('http://localhost:8080/cardSet/category/'. $_GET["cat"]));
+
+                // TODO: da noch kein "Count" von der DB kommt. Hier manuell setzen
+                foreach ($cardSets as $set) {
+                    $set->count = "?";
+                }
+            } catch (Exception $e) {
+                echo '<h5><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+            }
+
             foreach ($cardSets as $item){
                 echo '
                 <div class="col-lg-2">
                     <div class="callout callout-info">
-                        <h5>'.$item["name"].'</h5>
-                        <p><strong>'.$item["count"].' Karten</strong></p>
+                        <h5>'.$item->name.'</h5>
+                        <p><strong>'.$item->count.' Karten</strong></p>
                     </div>
                 </div>';
             }
             ?>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="?p=createCardSet">
+                    <button type="button" class="btn btn-primary">Kartenset erstellen</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
