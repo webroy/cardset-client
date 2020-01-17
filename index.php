@@ -120,6 +120,8 @@
                 include("pages/showQuartett.php"); break;
             case "showCardSets":
                 include("pages/showCardSets.php"); break;
+            case "showCards":
+                include("pages/showCards.php"); break;
             case "showCategories":
                 include("pages/showCategories.php"); break;
 
