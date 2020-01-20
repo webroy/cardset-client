@@ -12,9 +12,9 @@
 
                     <?php
                         // for a new card ..
-                        $card = [
+                        $card = (object)[
                             "id" => 0,
-                            "img" => "",
+                            "img" => "https://via.placeholder.com/300/000000?text=IMG",
                             "question" => "",
                             "originalSrc" => "",
                             "answer" => []
@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card-body">
-                                    <img src="<?php echo $card->img; ?>">
+                                    <img src="<?php echo $card->img; ?>" height="200px" alt="">
                                 </div>
                             </div>
 
@@ -56,7 +56,7 @@
 
                                     <table>
                                         <?php
-                                        for($i = 0; $i < 4; $i++){
+                                        for($i = 0; $i < (count($card->answer) <= 4 ? 4 : count($card->answer)); $i++){
                                             echo '
                                             <tr>
                                                 <td>

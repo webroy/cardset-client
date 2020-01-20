@@ -19,7 +19,7 @@
                         <h3 class="card-title">Kartenset erstellen</h3>
                     </div>
 
-                    <form method="post" action="?p=createCard&setId=1" role="form" name="createCardSet">
+                    <form method="post" action="?p=createCard&cardSet=1" role="form" name="createCardSet">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="setName">Name</label>

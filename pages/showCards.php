@@ -27,14 +27,13 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12 text-center">
-                                                    <img src="https://via.placeholder.com/300/000000?text=IMG" width="100%" height="200px" alt="">
+                                                    <img src="<?php echo $card->img; ?>" width="100%" height="200px" alt="">
                                                 </div>
                                             </div>
                                             <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                                                 <div class="col-12">
                                                     <p class="text-muted text-sm" style="margin-bottom: 0">
-                                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                                                        At vero eos et accusam et justo duo dolores ..
+                                                        <?php echo $card->question; ?>
                                                     </p>
                                                 </div>
                                             </div>
@@ -52,12 +51,12 @@
                                         </div>
                                         <div class="card-footer">
                                             <div class="row">
-                                                <div class="col-4">
+                                                <div class="col-2">
                                                     <a href="?p=createCard&card=<?php echo $card->id; ?>" class="btn btn-sm btn-primary">
-                                                        <i class="fas fa-edit"></i> Bearbeiten
+                                                        <i class="fas fa-edit"></i> 
                                                     </a>
                                                 </div>
-                                                <div class="col-8">
+                                                <div class="col-10">
                                                     <div class="text-right">
                                                         <span><?php echo $card->originalSrc; ?></span>
                                                     </div>
