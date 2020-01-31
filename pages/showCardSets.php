@@ -14,18 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <?php
-            $cardSets = [];
-
-            try {
-                $cardSets = json_decode(file_get_contents('http://localhost:8080/cardSet/category/'. $_GET["cat"]));
-
-                // TODO: da noch kein "Count" von der DB kommt. Hier manuell setzen
-                foreach ($cardSets as $set) {
-                    $set->count = "?";
-                }
-            } catch (Exception $e) {
-                echo '<h5><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
-            }
+            $cardSets = getCardSetsFromCategory($_GET["cat"]);
 
             foreach ($cardSets as $item){
                 echo '

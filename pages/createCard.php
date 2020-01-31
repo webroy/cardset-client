@@ -11,6 +11,10 @@
                     </div>
 
                     <?php
+                    // edit card?
+                    if (isset($_GET['card'])){
+                        $card = getCard($_GET['card']);
+                    } else {
                         // for a new card ..
                         $card = (object)[
                             "id" => 0,
@@ -19,19 +23,10 @@
                             "originalSrc" => "",
                             "answer" => []
                         ];
-
-                        try {
-                            // edit card?
-                            if (isset($_GET['card'])){
-                                $card = json_decode(file_get_contents('http://localhost:8080/card/'. $_GET["card"]));
-                                unset($card->cardSet); // remove this array
-                            }
-                        } catch (Exception $e) {
-                            echo '<h5><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
-                        }
+                    }
                     ?>
 
-                    <form method="post" action="#" role="form" name="createCard">
+                    <!--<form method="post" action="#" role="form" name="createCard">-->
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card-body">
@@ -61,12 +56,12 @@
                                             <tr>
                                                 <td>
                                                     <div class="icheck-success d-inline">
-                                                        <input type="checkbox" id="checkboxSuccess1" '.(isset($card->answer[$i]) && $card->answer[$i]->isCorrect ? "checked" : "").'>
-                                                        <label for="checkboxSuccess1"></label>
+                                                        <input type="checkbox" id="checkbox_'.$i.'" '.(isset($card->answer[$i]) && $card->answer[$i]->isCorrect ? "checked" : "").'>
+                                                        <label for="checkbox_'.$i.'"></label>
                                                     </div>
                                                 </td>
                                                 <td width="100%" style="padding: 6px 0">
-                                                    <input type="text" class="form-control" value="'.(isset($card->answer[$i]) ? $card->answer[$i]->answer : "").'">
+                                                    <input type="text" class="form-control" id="answer_'.$i.'" value="'.(isset($card->answer[$i]) ? $card->answer[$i]->answer : "").'">
                                                 </td>
                                             </tr>';
                                         }
@@ -76,15 +71,39 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Speichern</button>
+                                <button class="btn btn-primary" onClick="createCard()">Speichern</button>
                             </div>
                         </div>
-                    </form>
+                    <!--</form>-->
                 </div>
             </div>
-            <!-- /.col-md-6 -->
         </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
 </div>
 <!-- /.content -->
+
+
+<script>
+    function createCard() {
+        var question = $("#question").val();
+        if (question == "") return;
+
+        // TODO save answer also ...
+        
+        $.ajax({
+            type: "POST", // TODO PUT with id!
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/card",
+            data: JSON.stringify({
+                "img": "images/foto.jpg", // TODO
+                "originalSrc": "copy by ..", // TODO
+                "question": question,
+                "cardSet": $_GET['cardSet']
+            })
+        }).done(function(response) {
+            /*var setId = response.id;
+            window.location.href = '?p=createCard&cardSet=' + setId;*/
+        });
+    }
+</script>

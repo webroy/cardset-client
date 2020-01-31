@@ -13,13 +13,7 @@
                     <div class="card-body pb-0">
                         <div class="row d-flex align-items-stretch">
                             <?php
-                            $cards = [];
-
-                            try {
-                                $cards = json_decode(file_get_contents('http://localhost:8080/card/category/'. $_GET["cardSet"]));
-                            } catch (Exception $e) {
-                                echo '<h5><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
-                            }
+                            $cards = getCardsFromCardSet($_GET["cardSet"]);
 
                             foreach($cards as $card){ ?>
                                 <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">

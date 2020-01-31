@@ -96,6 +96,8 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <?php
+        include_once("helper.php");
+        
         // Set custom err handler -> throw an error also for warnings!
         set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
             // error was suppressed with the @-operator

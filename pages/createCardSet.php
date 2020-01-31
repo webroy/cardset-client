@@ -19,37 +19,70 @@
                         <h3 class="card-title">Kartenset erstellen</h3>
                     </div>
 
-                    <form method="post" action="?p=createCard&cardSet=1" role="form" name="createCardSet">
+                    <!--<form method="post" action="#" role="form" name="createCardSet">-->
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="setName">Name</label>
-                                <input type="text" class="form-control" id="setName">
+                                <label for="cardName">Name</label>
+                                <input type="text" class="form-control" id="cardName">
                             </div>
                             <div class="form-group">
                                 <label>Kategorie</label>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected="selected">Elektronik</option>
-                                    <option>Programmierung</option>
-                                    <option>Diverses</option>
+                                <select class="form-control select2" style="width: 100%;" id="category">
+                                    <option selected="selected">-</option>
+                                    <?php
+                                    $categories = getCategories();
+                                    foreach($categories as $cat){
+                                        echo "<option value='".$cat->id."'>".$cat->name."</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Karten Typ</label>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected="selected">Frage & Antworten</option>
-                                    <option>Frage & Auswahlmöglichkeiten</option>
-                                    <option disabled="disabled">Fixe Werte</option>
+                                <select class="form-control select2" style="width: 100%;" id="cardType">
+                                <option selected="selected">-</option>
+                                    <?php
+                                    $cardType = getCardTypes();
+                                    foreach($cardType as $type){
+                                        echo "<option value='".$type->id."'>".$type->type."</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Erfassen</button>
+                            <button class="btn btn-primary" onClick="createCardSet()">Erfassen</button>
                         </div>
-                    </form>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- /.content -->
+
+
+<script>
+    function createCardSet() {
+        var cardName = $("#cardName").val();
+        var category = $("#category").val();
+        var cardType = $("#cardType").val();
+        if (cardName == "" || category == "" || cardType == "") return;
+
+        $.ajax({
+            type: "POST",
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/cardSet",
+            data: JSON.stringify({
+                "name": cardName,
+                "category": parseInt(category),
+                "cardType": parseInt(cardType)
+            })
+        }).done(function(response) {
+            var setId = response.id;
+            window.location.href = '?p=createCard&cardSet=' + setId;
+        });
+    }
+</script>
