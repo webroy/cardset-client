@@ -46,7 +46,7 @@
                                         <div class="card-footer">
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <a href="?p=createCard&card=<?php echo $card->id; ?>" class="btn btn-sm btn-primary">
+                                                    <a href="?p=createCard&card=<?php echo $card->id; ?>&cardSet=<?php echo $_GET["cardSet"]; ?>" class="btn btn-sm btn-primary">
                                                         <i class="fas fa-edit"></i> 
                                                     </a>
                                                 </div>

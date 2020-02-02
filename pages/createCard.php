@@ -38,7 +38,11 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="question">Frage</label>
-                                        <textarea type="text" class="form-control" id="question" rows="6"><?php echo $card->question; ?></textarea>
+                                        <textarea type="text" class="form-control" id="question" rows="4"><?php echo $card->question; ?></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="question">Urheber</label>
+                                        <input type="text" class="form-control" id="originalSrc" value="<?php echo $card->originalSrc; ?>">
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +75,13 @@
                             </div>
 
                             <div class="card-footer">
-                                <button class="btn btn-primary" onClick="createCard()">Speichern</button>
+                                <?php
+                                if (isset($_GET['card'])){
+                                    echo '<button class="btn btn-primary" onClick="saveCard()">Speichern</button>';
+                                } else {
+                                    echo '<button class="btn btn-primary" onClick="createCard()">Karte erfassen</button>';
+                                }
+                                ?>
                             </div>
                         </div>
                     <!--</form>-->
@@ -86,6 +96,7 @@
 <script>
     function createCard() {
         var question = $("#question").val();
+        var originalSrc = $("#originalSrc").val();
         if (question == "") return;
 
         // TODO save answer also ...
@@ -97,9 +108,33 @@
             url: "http://localhost:8080/card",
             data: JSON.stringify({
                 "img": "images/foto.jpg", // TODO
-                "originalSrc": "copy by ..", // TODO
+                "originalSrc": originalSrc,
                 "question": question,
-                "cardSet": $_GET['cardSet']
+                "cardSetId": <?php echo $_GET['cardSet']; ?>
+            })
+        }).done(function(response) {
+            /*var setId = response.id;
+            window.location.href = '?p=createCard&cardSet=' + setId;*/
+        });
+    }
+
+    function saveCard() {
+        var question = $("#question").val();
+        var originalSrc = $("#originalSrc").val();
+        if (question == "") return;
+
+        // TODO save answer also ...
+        
+        $.ajax({
+            type: "PUT",
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/card",
+            data: JSON.stringify({
+                "id": <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?>,
+                "img": "images/foto.jpg", // TODO
+                "originalSrc": originalSrc,
+                "question": question
             })
         }).done(function(response) {
             /*var setId = response.id;
