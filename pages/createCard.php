@@ -12,11 +12,11 @@
 
                     <?php
                     // edit card?
-                    if (isset($_GET['card'])){
+                    if (isset($_GET['card'])) {
                         $card = getCard($_GET['card']);
                     } else {
                         // for a new card ..
-                        $card = (object)[
+                        $card = (object) [
                             "id" => 0,
                             "img" => "https://via.placeholder.com/300/000000?text=IMG",
                             "question" => "",
@@ -26,7 +26,7 @@
                     }
                     ?>
 
-                    <!--<form method="post" action="#" role="form" name="createCard">-->
+                    <form action="#" role="form" name="createCard" onsubmit="return false;">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card-body">
@@ -55,17 +55,18 @@
 
                                     <table>
                                         <?php
-                                        for($i = 0; $i < (count($card->answer) <= 4 ? 4 : count($card->answer)); $i++){
+                                        for ($i = 0; $i < (count($card->answer) <= 4 ? 4 : count($card->answer)); $i++) {
+                                            $cardId = isset($card->answer[$i]) ? $card->answer[$i]->id : 0;
                                             echo '
                                             <tr>
                                                 <td>
                                                     <div class="icheck-success d-inline">
-                                                        <input type="checkbox" id="checkbox_'.$i.'" '.(isset($card->answer[$i]) && $card->answer[$i]->isCorrect ? "checked" : "").'>
-                                                        <label for="checkbox_'.$i.'"></label>
+                                                        <input type="checkbox" id="checkbox_' . $cardId . '" name="checkbox[]" ' . (isset($card->answer[$i]) && $card->answer[$i]->isCorrect ? "checked" : "") . '>
+                                                        <label for="checkbox_' . $cardId . '"></label>
                                                     </div>
                                                 </td>
                                                 <td width="100%" style="padding: 6px 0">
-                                                    <input type="text" class="form-control" id="answer_'.$i.'" value="'.(isset($card->answer[$i]) ? $card->answer[$i]->answer : "").'">
+                                                    <input type="text" class="form-control" data-id="' . $cardId . '" name="answer[]" value="' . (isset($card->answer[$i]) ? $card->answer[$i]->answer : "") . '">
                                                 </td>
                                             </tr>';
                                         }
@@ -76,19 +77,19 @@
 
                             <div class="card-footer">
                                 <?php
-                                if (isset($_GET['card'])){
+                                if (isset($_GET['card'])) {
                                     echo '<button class="btn btn-primary" onClick="saveCard()">Speichern</button>';
                                 } else {
                                     echo '<button class="btn btn-primary" onClick="createCard()">Karte erfassen</button>';
                                 }
                                 ?>
                             </div>
-                        </div>
-                    <!--</form>-->
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- /.content -->
 
@@ -99,8 +100,6 @@
         var originalSrc = $("#originalSrc").val();
         if (question == "") return;
 
-        // TODO save answer also ...
-        
         $.ajax({
             type: "POST", // TODO PUT with id!
             datatype: "json",
@@ -110,7 +109,8 @@
                 "img": "images/foto.jpg", // TODO
                 "originalSrc": originalSrc,
                 "question": question,
-                "cardSetId": <?php echo $_GET['cardSet']; ?>
+                "cardSetId": <?php echo $_GET['cardSet']; ?>,
+                "answer": getAnswerData()
             })
         }).done(function(response) {
             /*var setId = response.id;
@@ -123,8 +123,6 @@
         var originalSrc = $("#originalSrc").val();
         if (question == "") return;
 
-        // TODO save answer also ...
-        
         $.ajax({
             type: "PUT",
             datatype: "json",
@@ -134,11 +132,27 @@
                 "id": <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?>,
                 "img": "images/foto.jpg", // TODO
                 "originalSrc": originalSrc,
-                "question": question
+                "question": question,
+                "answer": getAnswerData()
             })
         }).done(function(response) {
             /*var setId = response.id;
             window.location.href = '?p=createCard&cardSet=' + setId;*/
         });
+    }
+
+    function getAnswerData() {
+        var answerList = []; // {"id": 1, "answer": "Antwort A", "isCorrect": false}
+
+        $(":input[name^='answer']").each(function() {
+            var id = $(this).data("id");
+            answerList.push({
+                "id": id,
+                "answer": $(this).val(),
+                "isCorrect": $("#checkbox_" + id).prop("checked")
+            });
+        });
+
+        return answerList;
     }
 </script>
