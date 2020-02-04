@@ -52,38 +52,43 @@
                                     <div class="form-group" style="margin-bottom: 0">
                                         <label for="question">Antworten</label>
                                     </div>
-
-                                    <table>
-                                        <?php
-                                        for ($i = 0; $i < (count($card->answer) <= 4 ? 4 : count($card->answer)); $i++) {
-                                            $cardId = isset($card->answer[$i]) ? $card->answer[$i]->id : 0;
-                                            echo '
-                                            <tr>
-                                                <td>
-                                                    <div class="icheck-success d-inline">
-                                                        <input type="checkbox" id="checkbox_' . $cardId . '" name="checkbox[]" ' . (isset($card->answer[$i]) && $card->answer[$i]->isCorrect ? "checked" : "") . '>
-                                                        <label for="checkbox_' . $cardId . '"></label>
-                                                    </div>
-                                                </td>
-                                                <td width="100%" style="padding: 6px 0">
-                                                    <input type="text" class="form-control" data-id="' . $cardId . '" name="answer[]" value="' . (isset($card->answer[$i]) ? $card->answer[$i]->answer : "") . '">
-                                                </td>
-                                            </tr>';
+                                    <?php
+                                        if (isset($card->id) && $card->id > 0){
+                                            echo "<table>";
+                                                for ($i = 0; $i < (count($card->answer) <= 4 ? 4 : count($card->answer)); $i++) {
+                                                    $cardId = isset($card->answer[$i]) ? $card->answer[$i]->id : 0;
+                                                    echo '
+                                                    <tr>
+                                                        <td>
+                                                            <div class="icheck-success d-inline">
+                                                                <input type="checkbox" id="checkbox_' . $i . '" data-id="' . $cardId . '" name="checkbox[]" ' . (isset($card->answer[$i]) && $card->answer[$i]->isCorrect ? "checked" : "") . '>
+                                                                <label for="checkbox_' . $i . '"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td width="100%" style="padding: 6px 0">
+                                                            <input type="text" class="form-control" data-id="' . $cardId . '" name="answer[]" value="' . (isset($card->answer[$i]) ? $card->answer[$i]->answer : "") . '">
+                                                        </td>
+                                                    </tr>';
+                                                }
+                                            echo "</table>";
+                                        } else {
+                                            echo "<strong>Karte muss zuerst gespeichert werden!</strong>";
                                         }
-                                        ?>
-                                    </table>
+                                    ?>
+                                    
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="card-footer">
-                                <?php
-                                if (isset($_GET['card'])) {
-                                    echo '<button class="btn btn-primary" onClick="saveCard()">Speichern</button>';
-                                } else {
-                                    echo '<button class="btn btn-primary" onClick="createCard()">Karte erfassen</button>';
-                                }
-                                ?>
-                            </div>
+                        <div class="card-footer">
+                            <?php
+                            if (isset($_GET['card'])) {
+                                echo '<button class="btn btn-primary" onClick="saveCard()">Speichern</button>';
+                            } else {
+                                echo '<button class="btn btn-primary" onClick="createNewCard()">Karte erfassen</button>';
+                            }
+                            ?>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -95,13 +100,13 @@
 
 
 <script>
-    function createCard() {
+    function createNewCard() {
         var question = $("#question").val();
         var originalSrc = $("#originalSrc").val();
         if (question == "") return;
 
         $.ajax({
-            type: "POST", // TODO PUT with id!
+            type: "POST",
             datatype: "json",
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:8080/card",
@@ -110,11 +115,12 @@
                 "originalSrc": originalSrc,
                 "question": question,
                 "cardSetId": <?php echo $_GET['cardSet']; ?>,
-                "answer": getAnswerData()
+                "answer": []
             })
         }).done(function(response) {
-            /*var setId = response.id;
-            window.location.href = '?p=createCard&cardSet=' + setId;*/
+            var cardId = response.id;
+            var setId = response.cardSet.id;
+            window.location.href = '?p=createCard&cardSet=' + setId + '&card=' + cardId;
         });
     }
 
@@ -136,20 +142,20 @@
                 "answer": getAnswerData()
             })
         }).done(function(response) {
-            /*var setId = response.id;
-            window.location.href = '?p=createCard&cardSet=' + setId;*/
+            window.location.reload();
         });
     }
 
     function getAnswerData() {
         var answerList = []; // {"id": 1, "answer": "Antwort A", "isCorrect": false}
 
+        var itemIndex = 0;
         $(":input[name^='answer']").each(function() {
             var id = $(this).data("id");
             answerList.push({
                 "id": id,
                 "answer": $(this).val(),
-                "isCorrect": $("#checkbox_" + id).prop("checked")
+                "isCorrect": $("#checkbox_" + itemIndex++).prop("checked")
             });
         });
 

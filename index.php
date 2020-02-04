@@ -69,21 +69,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="?p=createCard" class="nav-link">
-                            <i class="nav-icon fas fa-folder-plus"></i>
-                            <p>Karte erstellen</p>
+                        <a href="?p=showSetCards" class="nav-link">
+                            <i class="nav-icon fas fa-eye"></i>
+                            <p>Karten pro Set ansehen</p>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a href="?p=createQuartett" class="nav-link">
                             <i class="nav-icon fas fa-folder-plus"></i>
-                            <p>Quartett erstellen</p>
+                            <p>Quartett erstellen (inaktiv)</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="?p=showQuartett" class="nav-link">
                             <i class="nav-icon fas fa-eye"></i>
-                            <p>Quartett ansehen</p>
+                            <p>Quartett ansehen (inaktiv)</p>
                         </a>
                     </li>
                 </ul>
@@ -126,7 +127,9 @@
                 include("pages/showCards.php"); break;
             case "showCategories":
                 include("pages/showCategories.php"); break;
-
+            case "showSetCards":
+                include("pages/showSetCards.php"); break;
+    
             default:
                 include("pages/home.php"); break;
         }
@@ -135,10 +138,10 @@
     <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer d-print-none">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-            MA 1
+            MA 1 & 2
         </div>
         <strong>Copyright &copy; 2019. All rights reserved.</strong>
     </footer>
