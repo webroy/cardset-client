@@ -21,7 +21,6 @@
                 <div class="col-lg-2">
                     <div class="callout callout-info">
                         <h5><a href="?p=showCardSets&cat='.$item->id.'">' . $item->name . '</a></h5>
-                        <p><strong>' . $item->count . ' Kartensets</strong></p>
                     </div>
                 </div>';
             }

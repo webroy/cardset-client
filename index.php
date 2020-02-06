@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="dist/css/custom.css">
+    <link rel="stylesheet" media="print" href="dist/css/print.css" />
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
 <div class="wrapper">
