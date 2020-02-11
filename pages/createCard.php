@@ -28,9 +28,24 @@
                     if (isset($card)){ ?>
                         <form action="#" role="form" name="createCard" onsubmit="return false;">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-8">
                                     <div class="card-body">
-                                        <img src="<?php echo getImage($card->img); ?>" style="max-width:600px; max-height:inherit !important" alt="">
+                                        <img src="<?php echo getImage($card->img); ?>" style="max-width:600px; max-height:inherit !important" alt="" id="activeImg">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Bild auswählen</label>
+                                        <select class="form-control select2" style="width: 100%;" id="picture" onChange="pictureChange()">
+                                            <option selected="selected">-</option>
+                                            <?php
+                                            $images = getCardImages();
+                                            foreach($images as $img){
+                                                $isSelected = $img == $card->img ? 'selected="selected"' : "";
+                                                echo "<option value='".$img."' ".$isSelected.">".$img."</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -103,9 +118,15 @@
 
 
 <script>
+    function pictureChange() {
+        var img = $("#picture").val();
+        $("#activeImg").attr("src", "dist/card_pictures/" + img); // change picture
+    }
+
     function createNewCard() {
         var question = $("#question").val();
         var originalSrc = $("#originalSrc").val();
+        var img = $("#picture").val();
         if (question == "") return;
 
         $.ajax({
@@ -114,7 +135,7 @@
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:8080/card",
             data: JSON.stringify({
-                "img": "images/foto.jpg", // TODO
+                "img": img,
                 "originalSrc": originalSrc,
                 "question": question,
                 "cardSetId": <?php echo $_GET['cardSet']; ?>,
@@ -130,6 +151,7 @@
     function saveCard() {
         var question = $("#question").val();
         var originalSrc = $("#originalSrc").val();
+        var img = $("#picture").val();
         if (question == "") return;
 
         $.ajax({
@@ -139,7 +161,7 @@
             url: "http://localhost:8080/card",
             data: JSON.stringify({
                 "id": <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?>,
-                "img": "images/foto.jpg", // TODO
+                "img": img,
                 "originalSrc": originalSrc,
                 "question": question,
                 "answer": getAnswerData()

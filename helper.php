@@ -133,4 +133,8 @@ function getImage($img = "") {
     return 'dist/card_pictures/'.$img;
 }
 
+function getCardImages() {
+    return array_diff(scandir("dist/card_pictures"), array('.', '..'));
+}
+
 ?>
