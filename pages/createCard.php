@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="form-group" style="margin-top: 15px">
+                                    <div class="form-group" style="margin-top: 15px; margin-right: 15px">
                                         <label>Bild auswählen</label>
                                         <select class="form-control select2" style="width: 100%;" id="picture" onChange="pictureChange()">
                                             <option selected="selected">-</option>
@@ -122,7 +122,7 @@
 <script>
     function pictureChange() {
         var img = $("#picture").val();
-        $("#activeImg").attr("src", "dist/card_pictures/" + img); // change picture
+        $("#activeImg").attr("src", "dist/card_images/" + img); // change picture
     }
 
     function createNewCard() {

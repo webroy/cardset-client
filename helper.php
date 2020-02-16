@@ -151,11 +151,11 @@ function getImage($img = "") {
     if ($img == "")
         return "https://via.placeholder.com/300/000000?text=IMG-In-Progress";
 
-    return 'dist/card_pictures/'.$img;
+    return 'dist/card_images/'.$img;
 }
 
 function getCardImages() {
-    return array_diff(scandir("dist/card_pictures"), array('.', '..'));
+    return array_diff(scandir("dist/card_images"), array('.', '..'));
 }
 
 ?>
