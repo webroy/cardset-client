@@ -14,6 +14,16 @@ function getCardSetsFromCategory($categoryId){
     return $cardSets;
 }
 
+function getCardSet($cardSetId){
+    $cardSet = null;
+    try {
+        $cardSet = json_decode(file_get_contents('http://localhost:8080/cardSet/'. $cardSetId));
+    } catch (Exception $e) {
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+    }
+    return $cardSet;
+}
+
 function getCategories() {
     $categories = [];
 
@@ -23,6 +33,17 @@ function getCategories() {
         echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
     }
     return $categories;
+}
+
+function getCategory($categoryId) {
+    $categorie = null;
+
+    try {
+        $categorie = json_decode(file_get_contents('http://localhost:8080/category/'. $categoryId));
+    } catch (Exception $e) {
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+    }
+    return $categorie;
 }
 
 function getCardTypes() {

@@ -18,7 +18,7 @@
                         // for a new card ..
                         $card = (object) [
                             "id" => 0,
-                            "img" => getImage(""),
+                            "img" => "",
                             "question" => "",
                             "originalSrc" => "",
                             "answer" => []
@@ -129,7 +129,10 @@
         var question = $("#question").val();
         var originalSrc = $("#originalSrc").val();
         var img = $("#picture").val();
-        if (question == "") return;
+        if (question == ""){
+            showInfoMsg("Eingaben unfollständig!");
+            return;
+        }
 
         $.ajax({
             type: "POST",
@@ -144,9 +147,12 @@
                 "answer": []
             })
         }).done(function(response) {
+            showSuccessMsg("Karte erfolgreich erstellt!");
             var cardId = response.id;
             var setId = response.cardSet.id;
             window.location.href = '?p=createCard&cardSet=' + setId + '&card=' + cardId;
+        }).catch(function(err){
+            showErrorMsg("Es ist ein Fehler aufgetreten!");
         });
     }
 
@@ -154,7 +160,10 @@
         var question = $("#question").val();
         var originalSrc = $("#originalSrc").val();
         var img = $("#picture").val();
-        if (question == "") return;
+        if (question == ""){
+            showInfoMsg("Eingaben unfollständig!");
+            return;
+        }
 
         $.ajax({
             type: "PUT",
@@ -169,7 +178,10 @@
                 "answer": getAnswerData()
             })
         }).done(function(response) {
+            showSuccessMsg("Karte erfolgreich gespeichert!");
             window.location.reload();
+        }).catch(function(err){
+            showErrorMsg("Es ist ein Fehler aufgetreten!");
         });
     }
 
@@ -197,21 +209,30 @@
             url: "http://localhost:8080/card/" + <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?> + "/copy",
             data: ""
         }).done(function(response) {
+            showSuccessMsg("Karte erfolgreich kopiert!");
             var newCardId = response.id;
             var cardSetId = response.cardSet.id;
             window.location.href = '?p=createCard&card=' + newCardId + "&cardSet=" + cardSetId;
+        }).catch(function(err){
+            showErrorMsg("Es ist ein Fehler aufgetreten!");
         });
     }
 
     function deleteCard() {
-        $.ajax({
-            type: "DELETE",
-            datatype: "json",
-            contentType: "application/json; charset=utf-8",
-            url: "http://localhost:8080/card/" + <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?>,
-            data: ""
-        }).done(function(response) {
-            window.location.href = '?p=showCards&cardSet=' + <?php echo isset($_GET['cardSet']) ? $_GET['cardSet'] : 0; ?>;
-        });
+        var confirmed = confirm("Möchten Sie die Karte löschen?");
+        if (confirmed == true) {
+            $.ajax({
+                type: "DELETE",
+                datatype: "json",
+                contentType: "application/json; charset=utf-8",
+                url: "http://localhost:8080/card/" + <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?>,
+                data: ""
+            }).done(function(response) {
+                showSuccessMsg("Karte erfolgreich gelöscht!");
+                window.location.href = '?p=showCards&cardSet=' + <?php echo isset($_GET['cardSet']) ? $_GET['cardSet'] : 0; ?>;
+            }).catch(function(err){
+                showErrorMsg("Es ist ein Fehler aufgetreten!");
+            });
+        }
     }
 </script>

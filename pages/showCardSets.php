@@ -29,7 +29,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <a href="?p=createCardSet">
+                <a href="?p=createCardSet&cat=<?php echo $_GET["cat"];?>">
                     <button type="button" class="btn btn-primary">Kartenset erstellen</button>
                 </a>
             </div>

@@ -22,8 +22,9 @@
                     <div class="col-lg-12">
                         <div class="card card-solid">
                             <div class="card-header d-print-none">
-                                <h3 class="card-title p-1" style="margin-top: 4px;">Kartenset - <?php echo $category->name . ", " . $set->name; ?></h3>
+                                <h3 class="card-title p-1" style="margin-top: 4px;">Kartenset - <?php echo $category->name . ", <strong>" . $set->name; ?></strong></h3>
                                 <ul class="nav float-sm-right">
+                                    <li class="nav-item"><a href="?p=createCardSet&cardSet=<?php echo $set->id; ?>"><button class="btn btn-default" style="margin-right: 15px">Set umbenennen</button></a></li>
                                     <li class="nav-item"><a href="?p=createCard&cardSet=<?php echo $set->id; ?>"><button class="btn btn-primary">Karte erstellen</button></a></li>
                                 </ul>
                             </div>

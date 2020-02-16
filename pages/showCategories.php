@@ -68,7 +68,10 @@
 <script>
     function createCategory() {
         var category = $("#categoryName").val();
-        if (category == "") return;
+        if (category == ""){
+            showInfoMsg("Eingaben unfollständig!");
+            return;
+        }
 
         $.ajax({
             type: "POST",
@@ -79,7 +82,10 @@
                 "name": category
             })
         }).done(function(response) {
+            showSuccessMsg("Kategory erfolgreich erstellt!");
             window.location.reload();
+        }).catch(function(err){
+            showErrorMsg("Es ist ein Fehler aufgetreten!");
         });
     }
 </script>

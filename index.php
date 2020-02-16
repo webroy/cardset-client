@@ -9,12 +9,16 @@
 
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Global Scripts -->
+    <script src="dist/js/global.js"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
@@ -79,13 +83,13 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="?p=createQuartett" class="nav-link">
+                        <a href="?p=createQuartett" class="nav-link inactive">
                             <i class="nav-icon fas fa-folder-plus"></i>
                             <p>Quartett erstellen (inaktiv)</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="?p=showQuartett" class="nav-link">
+                        <a href="?p=showQuartett" class="nav-link inactive">
                             <i class="nav-icon fas fa-eye"></i>
                             <p>Quartett ansehen (inaktiv)</p>
                         </a>
@@ -156,12 +160,14 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 
 <script>
     $(function () {
-        //Initialize Select2 Elements
+        // Initialize Select2 Elements
         $('.select2').select2();
     });
 </script>
