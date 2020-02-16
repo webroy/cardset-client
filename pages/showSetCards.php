@@ -11,7 +11,7 @@
 
 <!-- Main content -->
 <div class="content">
-    <div class="container-fluid">
+    <div class="container-fluid card-list-page">
         <?php
         $categories = getCategories();
         foreach ($categories as $category) {

@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="form-group">
+                                    <div class="form-group" style="margin-top: 15px">
                                         <label>Bild auswählen</label>
                                         <select class="form-control select2" style="width: 100%;" id="picture" onChange="pictureChange()">
                                             <option selected="selected">-</option>
@@ -99,6 +99,8 @@
                                 <?php
                                 if (isset($_GET['card'])) {
                                     echo '<button class="btn btn-primary" onClick="saveCard()">Speichern</button>';
+                                    echo '<button class="btn btn-danger float-sm-right" onClick="deleteCard()">Karte löschen</button>';
+                                    echo '<button class="btn btn-default float-sm-right" onClick="copyCard()" style="margin-right: 15px">Karte kopieren</button>';
                                 } else {
                                     echo '<button class="btn btn-primary" onClick="createNewCard()">Karte erfassen</button>';
                                 }
@@ -185,5 +187,31 @@
         });
 
         return answerList;
+    }
+
+    function copyCard() {
+        $.ajax({
+            type: "POST",
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/card/" + <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?> + "/copy",
+            data: ""
+        }).done(function(response) {
+            var newCardId = response.id;
+            var cardSetId = response.cardSet.id;
+            window.location.href = '?p=createCard&card=' + newCardId + "&cardSet=" + cardSetId;
+        });
+    }
+
+    function deleteCard() {
+        $.ajax({
+            type: "DELETE",
+            datatype: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/card/" + <?php echo isset($_GET['card']) ? $_GET['card'] : 0; ?>,
+            data: ""
+        }).done(function(response) {
+            window.location.href = '?p=showCards&cardSet=' + <?php echo isset($_GET['cardSet']) ? $_GET['cardSet'] : 0; ?>;
+        });
     }
 </script>

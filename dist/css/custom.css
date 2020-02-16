@@ -7,7 +7,7 @@
     flex-wrap: nowrap;
 }
 
-.card-body img {
+.card-list-page .card-body img {
     width: calc(100% + 42px);
     max-height: 160px;
     left: -21px;
