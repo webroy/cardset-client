@@ -27,7 +27,7 @@
                                         <div class="position-relative p-3 bg-gradient-warning" style="height: 180px">
                                             <div class="ribbon-wrapper ribbon-lg">
                                                 <div class="ribbon bg-success text-lg">
-                                                    Top
+                                                    Edit Mode
                                                 </div>
                                             </div>
                                             Einzelne Fächer lernen <br />
