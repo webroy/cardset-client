@@ -109,7 +109,7 @@
             var setId = response.id;
             window.location.href = '?p=createCard&cardSet=' + setId;
         }).catch(function(err){
-            showErrorMsg("Es ist ein Fehler aufgetreten!");
+            showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
         });
     }
     
@@ -138,7 +138,7 @@
             var setId = response.id;
             window.location.href = '?p=createCardSet&cardSet=' + setId;
         }).catch(function(err){
-            showErrorMsg("Es ist ein Fehler aufgetreten!");
+            showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
         });
     }
 
@@ -155,7 +155,7 @@
                 showSuccessMsg("Kartenset erfolgreich gelöscht!");
                 window.location.href = '?p=createCardSet';
             }).catch(function(err){
-                showErrorMsg("Es ist ein Fehler aufgetreten!");
+                showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
             });
         }
     }

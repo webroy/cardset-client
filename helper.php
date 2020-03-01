@@ -9,7 +9,7 @@ function getCardSetsFromCategory($categoryId){
     try {
         $cardSets = json_decode(file_get_contents('http://localhost:8080/cardSet/category/'. $categoryId));
     } catch (Exception $e) {
-        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Fehler bei der Verbindung zum Service!<br><br>Error: '.$e->getMessage().'</h5>';
     }
     return $cardSets;
 }
@@ -19,7 +19,7 @@ function getCardSet($cardSetId){
     try {
         $cardSet = json_decode(file_get_contents('http://localhost:8080/cardSet/'. $cardSetId));
     } catch (Exception $e) {
-        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Fehler bei der Verbindung zum Service!<br><br>Error: '.$e->getMessage().'</h5>';
     }
     return $cardSet;
 }
@@ -30,7 +30,7 @@ function getCategories() {
     try {
         $categories = json_decode(file_get_contents('http://localhost:8080/category'));
     } catch (Exception $e) {
-        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Fehler bei der Verbindung zum Service!<br><br>Error: '.$e->getMessage().'</h5>';
     }
     return $categories;
 }
@@ -41,7 +41,7 @@ function getCategory($categoryId) {
     try {
         $categorie = json_decode(file_get_contents('http://localhost:8080/category/'. $categoryId));
     } catch (Exception $e) {
-        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Fehler bei der Verbindung zum Service!<br><br>Error: '.$e->getMessage().'</h5>';
     }
     return $categorie;
 }
@@ -52,7 +52,7 @@ function getCardTypes() {
     try {
         $cardTypes = json_decode(file_get_contents('http://localhost:8080/cardType'));
     } catch (Exception $e) {
-        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Fehler bei der Verbindung zum Service!<br><br>Error: '.$e->getMessage().'</h5>';
     }
     return $cardTypes;
 }
@@ -63,7 +63,7 @@ function getCardsFromCardSet($cardSet) {
     try {
         $cards = json_decode(file_get_contents('http://localhost:8080/card/category/'. $cardSet));
     } catch (Exception $e) {
-        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Fehler bei der Verbindung zum Service!<br><br>Error: '.$e->getMessage().'</h5>';
     }
     return $cards;
 }
@@ -77,7 +77,7 @@ function getCard($cardId = null){
             return $card;
         }
     } catch (Exception $e) {
-        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Verbindung zum Service nicht möglich!</h5>';
+        echo '<h5 class="communication-error"><i class="fas fa-exclamation-triangle text-warning"></i> Fehler bei der Verbindung zum Service!<br><br>Error: '.$e->getMessage().'</h5>';
     }
     return null;
 }

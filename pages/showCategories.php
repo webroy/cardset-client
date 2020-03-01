@@ -85,7 +85,7 @@
             showSuccessMsg("Kategory erfolgreich erstellt!");
             window.location.reload();
         }).catch(function(err){
-            showErrorMsg("Es ist ein Fehler aufgetreten!");
+            showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
         });
     }
 </script>

@@ -152,7 +152,7 @@
             var setId = response.cardSet.id;
             window.location.href = '?p=createCard&cardSet=' + setId + '&card=' + cardId;
         }).catch(function(err){
-            showErrorMsg("Es ist ein Fehler aufgetreten!");
+            showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
         });
     }
 
@@ -181,7 +181,7 @@
             showSuccessMsg("Karte erfolgreich gespeichert!");
             window.location.reload();
         }).catch(function(err){
-            showErrorMsg("Es ist ein Fehler aufgetreten!");
+            showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
         });
     }
 
@@ -214,7 +214,7 @@
             var cardSetId = response.cardSet.id;
             window.location.href = '?p=createCard&card=' + newCardId + "&cardSet=" + cardSetId;
         }).catch(function(err){
-            showErrorMsg("Es ist ein Fehler aufgetreten!");
+            showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
         });
     }
 
@@ -231,7 +231,7 @@
                 showSuccessMsg("Karte erfolgreich gelöscht!");
                 window.location.href = '?p=showCards&cardSet=' + <?php echo isset($_GET['cardSet']) ? $_GET['cardSet'] : 0; ?>;
             }).catch(function(err){
-                showErrorMsg("Es ist ein Fehler aufgetreten!");
+                showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
             });
         }
     }
