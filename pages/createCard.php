@@ -101,6 +101,7 @@
                                     echo '<button class="btn btn-primary" onClick="saveCard()">Speichern</button>';
                                     echo '<button class="btn btn-danger float-sm-right" onClick="deleteCard()">Karte löschen</button>';
                                     echo '<button class="btn btn-default float-sm-right" onClick="copyCard()" style="margin-right: 15px">Karte kopieren</button>';
+                                    echo '<button class="btn btn-default float-sm-right" onClick="createNewBlankCard()" style="margin-right: 15px">Weitere Karte erstellen</button>';
                                 } else {
                                     echo '<button class="btn btn-primary" onClick="createNewCard()">Karte erfassen</button>';
                                 }
@@ -234,5 +235,9 @@
                 showErrorMsg("Es ist ein Fehler aufgetreten!\n" + err.responseJSON.message);
             });
         }
+    }
+
+    function createNewBlankCard() {
+        window.location.href = '?p=createCard&cardSet=' + <?php echo isset($_GET['cardSet']) ? $_GET['cardSet'] : 0; ?>;
     }
 </script>
